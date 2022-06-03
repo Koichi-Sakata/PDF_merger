@@ -3,7 +3,7 @@ PDF Merger
 
 # 1. Introduction
 
-This is a python program to create PDF merger software.
+This is a python program to create PDF merger application.
 The program requires [tkinterdnd2](https://pypi.org/project/tkinterdnd2/) and [PyPDF2](https://pypi.org/project/PyPDF2/).
 
 
@@ -14,7 +14,7 @@ You can make exe file which is not necesasary python environment by the followin
 pyinstaller pdf_merger.py --onefile --noconsole --collect-all tkinterdnd2
 ```
 
-# 3. How to use the software
+# 3. How to use the application
 
 <img src="figure\PDF_Merger.png" alt="spyder_disp" style="zoom: 66%;" />
 
