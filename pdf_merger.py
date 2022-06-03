@@ -95,7 +95,7 @@ lbl.place(x=25, y=30)
 
 # Textbox1 Path
 textbox1 = tkinter.Entry(width=60, font=(u'Meiryo', 12))
-textbox1.insert(tkinter.END, "Push Ref button to select a folder path of a new PDF file.")
+textbox1.insert(tkinter.END, "Push Ref button to select a folder path to save a new PDF file.")
 textbox1.place(x=150, y=30)
 
 # Label2 merged file name
