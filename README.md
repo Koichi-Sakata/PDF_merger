@@ -18,7 +18,8 @@ pyinstaller pdf_merger.py --onefile --noconsole --collect-all tkinterdnd2
 
 <img src="figure\PDF_Merger.png" alt="spyder_disp" style="zoom: 66%;" />
 
-1. Enter a path name of a new merged file or select a path by pushing "Ref" button.
+1. Push "Ref" button to select a folder path of a new PDF file.
 1. Drag and drop at least two PDF files you want to merge.
 1. Push "Merge" button.
 1. A new merged file will be created in the folder path you selected.
+1. If "Reset" button is pushed, the dropped PDF files to merge will be cleared.

@@ -15,9 +15,9 @@ def readfolder():
 
 
 def merge():
-    savePath = textbox1.get()
+    global merger
 
-    if os.path.exists(savePath):
+    if os.path.exists(textbox1.get()):
         textbox3.delete(1.0, tkinter.END)
         textbox3.insert('1.0', 'Merge the below PDF files.\n\n')
         for k in range(len(filelist)):
@@ -32,18 +32,32 @@ def merge():
         textbox3.insert(tkinter.END, 'Drag and drop at least two PDF files you want to merge.\n\n')
         return
 
-    savedName = textbox2.get()
+    savePath = os.path.join(textbox1.get(), textbox2.get() + '.pdf')
 
     for k in range(len(filelist)):
         merger.append(filelist[k])
-    merger.write(os.path.join(savePath, savedName + '.pdf'))
+    if os.path.exists(savePath):
+        textbox3.insert(tkinter.END, '\nA file with the same name (' + textbox2.get() + '.pdf)' + ' exists.\n')
+        textbox3.insert(tkinter.END, 'Change to another name.')
+        return
+    merger.write(savePath)
     merger.close()
+    merger = PyPDF2.PdfFileMerger()
 
-    textbox3.insert(tkinter.END, '\n\n**************************\n\n')
-    textbox3.insert(tkinter.END, 'The merged file is saved as ' + savedName + '.pdf.')
+    textbox3.insert(tkinter.END, '************************************************\n')
+    textbox3.insert(tkinter.END, 'The merged file is saved as ' + textbox2.get() + '.pdf.')
+
+
+def reset():
+    global filelist
+    textbox3.delete(1.0, tkinter.END)
+    textbox3.insert('1.0', 'Drag and drop PDF files you want to merge.')
+    filelist = []
+    print(filelist)
 
 
 def drop(event):
+    global filelist
     if event.data:
         filename = event.data
         filename = filename.replace('\\', '/')
@@ -52,7 +66,7 @@ def drop(event):
         filelist.append(filename)
         print(filelist)
         textbox3.delete(1.0, tkinter.END)
-        textbox3.insert('1.0', 'Merge the below PDF files.\n\n')
+        textbox3.insert(tkinter.END, 'Merge the below PDF files.\n\n')
         for k in range(len(filelist)):
             textbox3.insert(tkinter.END, filelist[k] + '\n')
     return event.action
@@ -69,15 +83,19 @@ button.place(x=150, y=120)
 
 # Merge button
 button = tkinter.Button(root, text="Merge", command=merge, width=8, height=2, font=(u'Meiryo', 12), bg='#4169e1', fg='#ffffff')
-button.place(x=260, y=120)
+button.place(x=275, y=120)
+
+# Reset button
+button = tkinter.Button(root, text="Reset", command=reset, width=8, height=2, font=(u'Meiryo', 12), bg='#FF4500', fg='#ffffff')
+button.place(x=400, y=120)
 
 # Label1 Path
-lbl = tkinter.Label(text='Path name', font=(u'Meiryo', 12))
+lbl = tkinter.Label(text='Folder path', font=(u'Meiryo', 12))
 lbl.place(x=25, y=30)
 
 # Textbox1 Path
 textbox1 = tkinter.Entry(width=60, font=(u'Meiryo', 12))
-textbox1.insert(tkinter.END, "Enter a path name or select a path by Ref button.")
+textbox1.insert(tkinter.END, "Push Ref button to select a folder path of a new PDF file.")
 textbox1.place(x=150, y=30)
 
 # Label2 merged file name
@@ -101,10 +119,8 @@ root.dnd_bind('<<Drop>>', drop)
 scroll_Y['command'] = textbox3.yview
 scroll_Y.place(x=755, y=200, height=250)
 
+folderPath = ''
 filelist = []
-
 merger = PyPDF2.PdfFileMerger()
-user = os.getlogin()
-username = str(user)
 
 root.mainloop()
