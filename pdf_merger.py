@@ -125,8 +125,9 @@ scroll_Y = tkinter.Scrollbar(orient='vertical')
 txt3 = tkinter.Text(width=60, height=10, font=(u'Meiryo', 12),  yscrollcommand=scroll_Y.set)
 txt3.place(x=150, y=200)
 txt3.insert('1.0', 'Drag and drop PDF files you want to merge.')
-txt3.drop_target_register(tkinterdnd2.DND_FILES)
-txt3.dnd_bind('<<Drop>>', drop)
+
+root.drop_target_register(tkinterdnd2.DND_FILES)
+root.dnd_bind('<<Drop>>', drop)
 
 scroll_Y['command'] = txt3.yview
 scroll_Y.place(x=755, y=200, height=250)
